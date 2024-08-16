@@ -17,11 +17,11 @@ namespace Onion.Domain.Entities
             CategoryId = categoryId;
         }
 
-        public required string Name { get; set; }
-        public required string Description { get; set; }
+        public string Name { get; set; }
+        public  string Description { get; set; }
 
         //Relations
-        public required Guid CategoryId { get; set; }
+        public  Guid CategoryId { get; set; }
         public Category Category { get; set; }
 
     }

@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Onion.Application.Interfaces.Repositories;
 using Onion.Domain.Common;
+using Onion.Persistence.Context;
 
 namespace Onion.Persistence.Repositories
 {
     public class WriteRepository<T> : IWriteRepository<T> where T : class, IEntityBase, new()
     {
-        private readonly DbContext _db;
+        private readonly AppDbContext _db;
 
-        public WriteRepository(DbContext db)
+        public WriteRepository(AppDbContext db)
         {
             _db = db;
         }

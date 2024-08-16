@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Onion.Application.Interfaces.Repositories;
 using Onion.Domain.Common;
+using Onion.Persistence.Context;
 
 namespace Onion.Persistence.Repositories
 {
     public class ReadRepository<T> : IReadRepository<T> where T : class, IEntityBase, new()
     {
-        private readonly DbContext _db;
-        public ReadRepository(DbContext db)
+        private readonly AppDbContext _db;
+        public ReadRepository(AppDbContext db)
         {
             _db = db;
         }
