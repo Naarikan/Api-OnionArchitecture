@@ -8,14 +8,14 @@ namespace Onion.Domain.Entities
         {
             
         }
-        public Category(int parentId,string name,int priorty)
+        public Category(Guid parentId,string name,int priorty)
         {
             ParentId = parentId;
             Name = name;
             Priorty = priorty;
         }
 
-        public required int ParentId { get; set; }
+        public Guid? ParentId { get; set; }=Guid.Empty;
         public required string Name { get; set; }
         public required int Priorty { get; set; }
 
