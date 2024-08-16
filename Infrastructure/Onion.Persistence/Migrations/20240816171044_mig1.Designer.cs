@@ -12,7 +12,7 @@ using Onion.Persistence.Context;
 namespace Onion.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240816160546_mig1")]
+    [Migration("20240816171044_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -78,8 +78,8 @@ namespace Onion.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParentId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ParentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Priorty")
                         .HasColumnType("int");
