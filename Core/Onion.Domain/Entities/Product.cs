@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Onion.Domain.Common;
+﻿using Onion.Domain.Common;
 
 namespace Onion.Domain.Entities
 {
-   public class Product:EntityBase,IEntityBase
+    public class Product:EntityBase,IEntityBase
     {
         public Product()
         {
         
         }
 
-        public Product()
+        public Product(string name,string desc,decimal price,decimal discount,Guid brandId)
         {
-            
+            Name = name;
+            Description = desc;
+            Price = price;
+            Discount = discount;
+            BrandId = brandId;
         }
 
         public required string Name { get; set; }
