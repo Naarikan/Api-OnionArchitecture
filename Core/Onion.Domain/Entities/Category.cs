@@ -16,8 +16,8 @@ namespace Onion.Domain.Entities
         }
 
         public Guid? ParentId { get; set; }=Guid.Empty;
-        public required string Name { get; set; }
-        public required int Priorty { get; set; }
+        public string Name { get; set; }
+        public  int Priorty { get; set; }
 
         //Relations 
         public ICollection<Detail> Details { get; set; }
