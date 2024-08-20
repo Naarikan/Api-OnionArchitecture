@@ -19,6 +19,7 @@ namespace Onion.Application.Interfaces.Repositories
        
         Task DestroyAsync(T item);
 
+        Task DestroyRangeAsync(IList<T> item);
 
 
     }

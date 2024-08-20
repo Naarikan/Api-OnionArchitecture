@@ -41,17 +41,13 @@ namespace Onion.Persistence.Repositories
         }
 
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include, bool enableTracking = false)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include, bool enableTracking = false)
         {
             IQueryable<T> query = Table;
             if (!enableTracking) query = query.AsNoTracking();
             if (include is not null) query = include(query);
 
             return await query.FirstOrDefaultAsync(predicate);
-
-         
-
-            
         }
 
         public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null)
