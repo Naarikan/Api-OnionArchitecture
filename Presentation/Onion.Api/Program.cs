@@ -1,6 +1,7 @@
 using Onion.Persistence.Context;
 using Onion.Application;
 using Onion.AutoMapper;
+using Onion.Application.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExeptionHandlingMiddleware();
 
 app.UseHttpsRedirection();
 

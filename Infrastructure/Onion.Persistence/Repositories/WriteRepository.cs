@@ -32,6 +32,11 @@ namespace Onion.Persistence.Repositories
             await Task.Run(() => Table.Remove(item));
         }
 
+        public async Task DestroyRangeAsync(IList<T> item)
+        {
+            await Task.Run(() => Table.RemoveRange(item));
+        }
+
         public async Task<T> UpdateAsync(T item)
         {
             await Task.Run(() => Table.Update(item));

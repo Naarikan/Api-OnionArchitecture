@@ -15,12 +15,7 @@ namespace Onion.Api.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
-        {
-           var response=await mediator.Send(new GetAllProductsQueryRequest());
-           return Ok(response);
-        }
+     
 
     }
 }

@@ -23,7 +23,7 @@ namespace Onion.Application.Interfaces.Repositories
            bool enableTracking = false, int currentPage = 1, int pageSize = 3);//-->Read yaparken tracking'in çalışmaması için
 
         Task<T> GetAsync(Expression<Func<T, bool>> predicate,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>> include,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include,
             bool enableTracking = false);//-->Read yaparken tracking'in çalışmaması için
 
 

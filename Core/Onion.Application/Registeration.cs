@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Onion.Application.Exceptions;
 
 namespace Onion.Application
 {
@@ -13,6 +14,9 @@ namespace Onion.Application
         public static void AddApplication(this IServiceCollection services)
         {
             var assembly=Assembly.GetExecutingAssembly();
+
+            services.AddTransient<ExceptionMiddleware>();
+
             services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(assembly));
         }
     }
