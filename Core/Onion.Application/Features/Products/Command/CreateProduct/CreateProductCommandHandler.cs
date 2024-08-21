@@ -9,7 +9,7 @@ using Onion.Domain.Entities;
 
 namespace Onion.Application.Features.Products.Command.CreateProduct
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest,Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -18,7 +18,7 @@ namespace Onion.Application.Features.Products.Command.CreateProduct
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
         {
             Product product = new(request.Name,request.Description,request.Price,request.Discount,request.BrandId);
 
@@ -38,6 +38,7 @@ namespace Onion.Application.Features.Products.Command.CreateProduct
                     });
                 await _unitOfWork.SaveAsync();
             }
+            return Unit.Value;
         }
     }
 }

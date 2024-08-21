@@ -35,8 +35,10 @@ namespace Onion.Application.Features.Products.Queries.GetAllProducts
             foreach (var item in map)
                 item.Price = item.Price - (item.Price*item.Discount/100);
 
+            return response;
+            //throw new Exception("hata mesajı");
 
-            throw new Exception("hata mesajı");
+            
           
         }
     }

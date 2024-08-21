@@ -2,7 +2,7 @@
 
 namespace Onion.Application.Features.Products.Command.UpdateProduct
 {
-    public class UpdateProductCommandRequest:IRequest
+    public class UpdateProductCommandRequest:IRequest<Unit>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
