@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Onion.Application.DTOs;
 using Onion.Application.Interfaces.AutoMapper;
@@ -27,6 +22,8 @@ namespace Onion.Application.Features.Products.Queries.GetAllProducts
         {
             var products = await _unitOfWork.GetReadRepository<Product>().GetAllAsync(include:x=>x.Include(b=>b.Brand));
 
+           
+
             var brand=mapper.Map<BrandDto,Brand>(new Brand());
 
             var map = mapper.Map<GetAllProductQueryResponse, Product>(products);
@@ -35,7 +32,7 @@ namespace Onion.Application.Features.Products.Queries.GetAllProducts
             foreach (var item in map)
                 item.Price = item.Price - (item.Price*item.Discount/100);
 
-            return response;
+            return map;
             //throw new Exception("hata mesajı");
 
             
