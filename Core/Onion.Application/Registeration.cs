@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Onion.Application.Bases;
 using Onion.Application.Behaviours;
 using Onion.Application.Exceptions;
+using Onion.Application.Features.Products.Rules;
 
 namespace Onion.Application
 {
@@ -21,6 +23,8 @@ namespace Onion.Application
 
             services.AddTransient<ExceptionMiddleware>();
 
+            services.AddRulesFromAssemblyContaining(assembly , typeof(BaseRules));
+
             services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(assembly));
 
             services.AddValidatorsFromAssembly(assembly);
@@ -29,5 +33,17 @@ namespace Onion.Application
 
             services.AddTransient(typeof(IPipelineBehavior<,>),typeof(FluentValidationBehaviour<,>));
         }
+
+        private static IServiceCollection AddRulesFromAssemblyContaining(this IServiceCollection services,
+            Assembly assembly,
+            Type type) 
+        { 
+          var types = assembly.GetTypes().Where(t=>t.IsSubclassOf(type) && type != t).ToList();
+            foreach (var item in types)
+                services.AddTransient(item);
+            return services;
+        }
     }
+
+    
 }
