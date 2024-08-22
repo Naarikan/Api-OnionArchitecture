@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Onion.Domain.Entities;
 namespace Onion.Persistence.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User,Role,Guid>
     {
         public AppDbContext(){}
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
