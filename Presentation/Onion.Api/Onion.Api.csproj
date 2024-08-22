@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Onion.AutoMapper\Onion.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Onion.Infrastructure\Onion.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Onion.Persistence\Onion.Persistence.csproj" />
   </ItemGroup>
 
