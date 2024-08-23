@@ -4,9 +4,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Onion.Application.Interfaces.Tokens;
@@ -54,12 +56,30 @@ namespace Onion.Infrastructure.Tokens
 
         public string GenerateRefreshToken()
         {
-            throw new NotImplementedException();
+            var randomNumber = new Byte[64];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
         }
 
-        public ClaimsPrincipal GetPrincipalFromExpiredToken()
+        public ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
         {
-            throw new NotImplementedException();
+            TokenValidationParameters tokenValidationParameters = new()
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenSettings.Secret)),
+                ValidateLifetime = false,
+            };
+
+            JwtSecurityTokenHandler handler = new();
+            var principal = handler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+
+            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("Token Bulunamadı");
+
+            return principal;   
         }
     }
 }
