@@ -1,5 +1,6 @@
 using Onion.Persistence.Context;
 using Onion.Application;
+using Onion.Infrastructure;
 using Onion.AutoMapper;
 using Onion.Application.Exceptions;
 
@@ -18,8 +19,10 @@ builder.Configuration.SetBasePath(env.ContentRootPath)
     .AddJsonFile($"appsettings.{env.EnvironmentName}.json",optional:true);
 
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddCustomMapper();
+
 
 var app = builder.Build();
 
