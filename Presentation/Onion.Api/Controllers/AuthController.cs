@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Onion.Application.Features.Auth.Command.Login;
+using Onion.Application.Features.Auth.Command.RefreshToken;
 using Onion.Application.Features.Auth.Command.Register;
 
 namespace Onion.Api.Controllers
@@ -28,6 +29,14 @@ namespace Onion.Api.Controllers
         public async Task<IActionResult> Login(LoginCommandRequest request)
         {
           var response = await mediator.Send(request);
+            return Ok(response);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> RefreshToken(RefreshTokenCommandRequest request)
+        {
+            var response = await mediator.Send(request);
             return Ok(response);
         }
     }
