@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Onion.Application.Interfaces.RedisCache;
 using Onion.Application.Interfaces.Tokens;
+using Onion.Infrastructure.RedisCache;
 using Onion.Infrastructure.Tokens;
 
 namespace Onion.Infrastructure
@@ -14,7 +16,9 @@ namespace Onion.Infrastructure
         {
             services.Configure<TokenSettings>(configuration.GetSection("JWT"));
             services.AddTransient<ITokenService, TokenService>();
-
+            services.Configure<RedisCacheSettings>(configuration.GetSection("RedisCacheSettings"));
+            services.AddTransient<IRedisCacheService, RedisCacheService>();
+           
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -43,6 +47,13 @@ namespace Onion.Infrastructure
             }
 
             );
+
+            services.AddStackExchangeRedisCache(opt =>
+            {
+                opt.Configuration = configuration["RedisCacheSettings:ConnectionString"];
+                opt.InstanceName = configuration["RedisCacheSettings:InstanceName"];
+
+            });
         }
     }
 }
