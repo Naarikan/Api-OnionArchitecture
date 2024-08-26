@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using MediatR;
 using Onion.Application.Interfaces.RedisCache;
 
-namespace Onion.Application.Features.Products.Queries.GetAllProducts
+namespace Onion.Application.Features.Brands.Queries.GetAllBrands
 {
-    public class GetAllProductsQueryRequest : IRequest<IList<GetAllProductQueryResponse>>, ICachableQuery
+    public class GetAllBrandsQueryRequest : IRequest<IList<GetAllBrandsQueryResponse>>, ICachableQuery
     {
-        public string CacheKey => "GetAllProducts";
+        public string CacheKey => "GetAllBrands";
+
 
         public double CacheTime => 60;
     }

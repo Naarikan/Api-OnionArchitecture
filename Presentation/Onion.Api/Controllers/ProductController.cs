@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Onion.Application.Features.Brands.Commands.CreateBrand;
+using Onion.Application.Features.Brands.Queries.GetAllBrands;
 using Onion.Application.Features.Products.Command.CreateProduct;
 using Onion.Application.Features.Products.Command.DeleteProduct;
 using Onion.Application.Features.Products.Command.UpdateProduct;
@@ -20,7 +22,7 @@ namespace Onion.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+       
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await mediator.Send(new GetAllProductsQueryRequest());
@@ -48,5 +50,18 @@ namespace Onion.Api.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateBrand(CreateBrandCommandRequest request)
+        {
+            await mediator.Send(request);
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllBrands()
+        {
+            var response = await mediator.Send(new GetAllBrandsQueryRequest());
+            return Ok(response);
+        }
     }
 }
